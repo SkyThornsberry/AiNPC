@@ -12,7 +12,7 @@ conversation_history = [{"role": "system", "content": "You are a character from 
     
 loopStartTime = time.time()
 timePassed = time.time() - loopStartTime #initialize time passed var
-while(timePassed < 60): #loop for 12 seconds
+while(timePassed < 60): #loop for a time limit, 
     timePassed = time.time() - loopStartTime
     new_message = {"role": "user", "content": gatherUserInput()} #take user input and format the response
     conversation_history.append(new_message) #add the new message to the conversation history(necessary for continued conversation/memory)
