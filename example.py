@@ -1,31 +1,28 @@
 from openai import OpenAI
 import datetime
 import time
+from functions import *
 
 
-#programStartTime = time.time()
 
-#loopStartTime = time.time()
-#timePassed = time.time() - loopStartTime #initialize time passed var
-#while(timePassed < 30): #loop for 30 seconds
-#    timePassed = time.time() - loopStartTime
-#    time.sleep(1)
-#    print("time passed:" + str(timePassed))
-
-
+programStartTime = time.time()
 
 client = OpenAI()
-
-
-completion = client.chat.completions.create(
+conversation_history = [{"role": "system", "content": "You are a character from the dungeons and dragon world of Faerun."}]
+    
+loopStartTime = time.time()
+timePassed = time.time() - loopStartTime #initialize time passed var
+while(timePassed < 60): #loop for 12 seconds
+    timePassed = time.time() - loopStartTime
+    new_message = {"role": "user", "content": gatherUserInput()} #take user input and format the response
+    conversation_history.append(new_message) #add the new message to the conversation history(necessary for continued conversation/memory)
+    completion = client.chat.completions.create( #send out the api call
     model="gpt-4o-mini",
-    messages=[
-        {"role": "system", "content": "You are a character from the dungeons and dragon world of Faerun."},
-        {
-            "role": "user",
-            "content": "tell me a joke about an owlbear."
-        }
-    ]
-)
+    messages= conversation_history
+    )
+    response = completion.choices[0].message
+    print(responseParser(response))#print response without the formatting
+    conversation_history.append(response)#add the api's response to the convo history
 
-print(completion.choices[0].message)
+
+
