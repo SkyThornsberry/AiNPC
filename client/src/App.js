@@ -5,7 +5,7 @@ function App() {
     const [data, setData] = useState([{}])
 
     useEffect(() => {
-      fetch("/members").then(
+      fetch("/apiLoop").then(
           res => res.json()
         ).then(
           data => {
@@ -16,15 +16,10 @@ function App() {
     }, [])
 
     return (
-        <div>
-            {(typeof data.members === 'undefined') ? (
-              <p>Loading...</p>
-            ) : (
-              data.members.map((member, i) => (
-                <p key={i}>{member}</p>
-              ))
-            )}
-        </div>
+      <div>
+      <h1>AI Response:</h1>
+      <p>{data.response}</p>  
+    </div>
     )
 }
 
