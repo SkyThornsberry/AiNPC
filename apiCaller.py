@@ -26,7 +26,8 @@ client = OpenAI()
 
 def apiCall(conversation_history):
     #new_message = {"role": "user", "content": gatherUserInput()}
-    new_message = {"role": "user", "content": "Hello, what is your name?"}
+    #new_message = {"role": "user", "content": userInput}
+    #conversation_history.append(new_message)#add new message to conversation chain
     completion = client.chat.completions.create( #send out the api call
     model="gpt-4o-mini",
     messages= conversation_history
